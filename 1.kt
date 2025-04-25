@@ -1,8 +1,8 @@
 class StatsModel(var critRate: Int, var evade: Int, var agility: Int, var ampRadius: Int, var power: Int)
-interface StatsView {
+interface IStatsView {
     fun displayStats(changedStat: String)
 }
-class StatsPresenter(private val view: StatsView, private val model: StatsModel) {
+class StatsPresenter(private val view: IStatsView, private val model: StatsModel) {
     fun increaseStat(statName: String, amount: Int) {
         val oldValue = when (statName) {
             "critRate" -> model.critRate
@@ -59,7 +59,7 @@ class HeroPresenter(private val view: HeroView, private val model: HeroModel) {
         view.displayHeroUpdate(changedParams)
     }
     fun getStatsPresenter(): StatsPresenter {
-        return StatsPresenter(object : StatsView {
+        return StatsPresenter(object : IStatsView {
             override fun displayStats(changedStat: String) {
                 if (changedStat.isNotEmpty()) {
                     println(changedStat)
