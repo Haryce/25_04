@@ -41,11 +41,11 @@ class StatsPresenter(private val view: IStatsView, private val model: StatsModel
     }
 }
 class HeroModel(var name: String, var age: Int, var desc: String, var stats: StatsModel)
-interface HeroView {
+interface IHeroView {
     fun displayHeroUpdate(changedParams: List<String>)
     fun displayHeroDetails(hero: HeroModel)
 }
-class HeroPresenter(private val view: HeroView, private val model: HeroModel) {
+class HeroPresenter(private val view: IHeroView, private val model: HeroModel) {
     fun updateHero(name: String, desc: String) {
         val changedParams = mutableListOf<String>()
         if (model.name != name) {
@@ -71,7 +71,7 @@ class HeroPresenter(private val view: HeroView, private val model: HeroModel) {
 fun main() {
     val statsModel = StatsModel(critRate = 10, evade = 5, agility = 117, ampRadius = 1, power = 15)
     val heroModel = HeroModel(name = "Nightfall", age = 26, desc = "dt", stats = statsModel)
-    val heroView = object : HeroView {
+    val heroView = object : IHeroView {
         override fun displayHeroUpdate(changedParams: List<String>) {
             if (changedParams.isNotEmpty()) {
                 for (param in changedParams) {
